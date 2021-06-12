@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EscapeGameScene : MonoBehaviour {
 
+	[SerializeField] MazeGenerator m_MazeGenerator;
 	[SerializeField] GameUI m_GameUI;
 	EscapeGame m_Game;
 	public EscapeGame Game { get { return m_Game; } }
@@ -12,7 +13,7 @@ public class EscapeGameScene : MonoBehaviour {
 
 	private void Awake()
     {
-		m_Game = new EscapeGame();
+		m_Game = new EscapeGame(m_MazeGenerator);
 		m_Game.OnGameStarted += HandleOnGameStarted;
 		m_Game.OnGameFinished += HandleOnGameFinished;
 		m_Game.OnGameOver += HandleOnGameOver;
@@ -30,7 +31,7 @@ public class EscapeGameScene : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.F))
         {
 			DetectEntity();
         }

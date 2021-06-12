@@ -36,9 +36,11 @@ public class EscapeGame
     Entity m_TakenEntity = null;
     public Entity TakenEntity { get { return m_TakenEntity; } }
 
-    public EscapeGame()
-    {
+    MazeGenerator m_MazeGenerator;
 
+    public EscapeGame(MazeGenerator maze_gen)
+    {
+        m_MazeGenerator = maze_gen;
         Debug.Log("You are in a locked room. Do something to escape!");
         Debug.Log("Press 'N' to select item; " +
             "'R' to putback taken item; " +
@@ -48,26 +50,31 @@ public class EscapeGame
 
     void Finish()
     {
-
         Debug.Log("Thanks for playing the game!");
         UnityEditor.EditorApplication.isPlaying = false;
     }
 
+    Vector3 GetRandomPos()
+    {
+        float gen_posx = Random.Range(m_MazeGenerator.columns / 2, m_MazeGenerator.columns) * m_MazeGenerator.blockWidth;
+        float gen_posz = Random.Range(m_MazeGenerator.rows / 2, m_MazeGenerator.rows) * m_MazeGenerator.blockHeight;
+        return new Vector3(gen_posx, 1f, gen_posz);
+    }
+
     public void MakeGame()
     {
-
-        m_Entities.Add(new Entity(this, "Basketball", new Vector3(-3, 5, 0)));
-        m_Entities.Add(new Entity(this, "Chair", new Vector3(0, 5, 0)));
-        m_Entities.Add(new Entity(this, "Cup", new Vector3(3, 5, 0)));
-        m_Entities.Add(new KeyEntity(this, "Key A", "123", new Vector3(-3, 2, 0)));
-        m_Entities.Add(new KeyEntity(this, "Key B", "124", new Vector3(0, 2, 0)));
-        m_Entities.Add(new DoorEntity(this, "Door A", null, new Vector3(3, 2, 0)));
-        m_Entities.Add(new DoorEntity(this, "Door B", null, new Vector3(-3, -1, 0)));
-        m_Entities.Add(new MonsterDoorEntity(this, "Door C", "123", new Vector3(0, -1, 0)));
-        m_Entities.Add(new ExitDoorEntity(this, "Door D", "124", new Vector3(3, -1, 0)));
-        m_Entities.Add(new BoxEntity(this, "Box A", null, null, new Vector3(-3, -4, 0)));
-        m_Entities.Add(new BoxEntity(this, "Box B", new KeyEntity(this, "Key C", "125", new Vector3(0, -4, 0)), null, new Vector3(0, -4, 0)));
-        m_Entities.Add(new PaperEntity(this, "Paper A", "Find a key to escape the room.", new Vector3(3, -4, 0)));
+        m_Entities.Add(new Entity(this, "Basketball", GetRandomPos()));
+        m_Entities.Add(new Entity(this, "Chair", GetRandomPos()));
+        m_Entities.Add(new Entity(this, "Cup", GetRandomPos()));
+        m_Entities.Add(new KeyEntity(this, "Key A", "123", GetRandomPos()));
+        m_Entities.Add(new KeyEntity(this, "Key B", "124", GetRandomPos()));
+        m_Entities.Add(new DoorEntity(this, "Door A", null, GetRandomPos()));
+        m_Entities.Add(new DoorEntity(this, "Door B", null, GetRandomPos()));
+        m_Entities.Add(new MonsterDoorEntity(this, "Door C", "123", GetRandomPos()));
+        m_Entities.Add(new ExitDoorEntity(this, "Door D", "124", GetRandomPos()));
+        m_Entities.Add(new BoxEntity(this, "Box A", null, null, GetRandomPos()));
+        m_Entities.Add(new BoxEntity(this, "Box B", new KeyEntity(this, "Key C", "125", GetRandomPos()), null, GetRandomPos()));
+        m_Entities.Add(new PaperEntity(this, "Paper A", "Find a key to escape the room.", GetRandomPos()));
 
         OnGameStarted(this);
     }
