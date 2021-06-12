@@ -56,7 +56,7 @@ public class EscapeGameScene : MonoBehaviour {
 
 	void DetectEntity()
     {
-		Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+		Ray ray = new Ray(Camera.main.transform.position, transform.TransformDirection(Camera.main.transform.forward));
 		bool detectEntity = false;
 		RaycastHit raycastresult;
 		if (Physics.Raycast(ray, out raycastresult))
@@ -123,7 +123,7 @@ public class EscapeGameScene : MonoBehaviour {
 		{
 			// create entities gameobject here
 			var entityBehav = GameObject.Instantiate(
-					Resources.Load<EntityBehav>("prefabs/" + e.Prefabs));
+					Resources.Load<EntityBehav>("Prefabs/" + e.Prefabs));
 			entityBehav.transform.localPosition = e.Position;
 			entityBehav.UpdateEntity(e);
 		}

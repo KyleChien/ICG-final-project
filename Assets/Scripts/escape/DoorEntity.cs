@@ -6,7 +6,7 @@ public class DoorEntity : OpenableEntity {
 
 	public DoorEntity (EscapeGame game, string name, string keyIdentifier, Vector3 position) :
 		base (game, name, keyIdentifier, position) {
-
+		m_Prefabs = "Magic_Chest";
 	}
 }
 
@@ -29,7 +29,7 @@ public class MonsterDoorEntity : DoorEntity {
 
 	public MonsterDoorEntity (EscapeGame game, string name, string keyIdentifier, Vector3 position) :
 	base (game, name, keyIdentifier, position) {
-
+		m_Prefabs = "Death_Chest";
 	}
 
 	protected override void Open () {

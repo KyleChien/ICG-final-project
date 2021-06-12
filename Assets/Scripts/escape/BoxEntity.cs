@@ -9,7 +9,7 @@ public class BoxEntity : OpenableEntity {
 
 	public BoxEntity (EscapeGame game, string name, Entity content, string keyIdentifier, Vector3 position) :
 		base (game, name, keyIdentifier, position) {
-
+		m_Prefabs = "Silver_Chest";
 		m_Content = content;
 	}
 

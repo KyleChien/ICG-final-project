@@ -36,7 +36,11 @@ public class EscapeGame
     Entity m_TakenEntity = null;
     public Entity TakenEntity { get { return m_TakenEntity; } }
 
+    // generate enetities
     MazeGenerator m_MazeGenerator;
+    List<string> gen_history = new List<string>();
+    float gen_posx;
+    float gen_posz;
 
     public EscapeGame(MazeGenerator maze_gen)
     {
@@ -56,8 +60,19 @@ public class EscapeGame
 
     Vector3 GetRandomPos()
     {
-        float gen_posx = Random.Range(m_MazeGenerator.columns / 2, m_MazeGenerator.columns) * m_MazeGenerator.blockWidth;
-        float gen_posz = Random.Range(m_MazeGenerator.rows / 2, m_MazeGenerator.rows) * m_MazeGenerator.blockHeight;
+        // check generation point
+        int available_gen_pos = m_MazeGenerator.columns / 2 * m_MazeGenerator.rows / 2;
+        if (m_Entities.Count > available_gen_pos)
+            throw new System.ArgumentOutOfRangeException("entity amount larger than available genration positions !");
+            
+        do
+        {
+            gen_posx = Random.Range(m_MazeGenerator.columns / 2, m_MazeGenerator.columns) * m_MazeGenerator.blockWidth;
+            gen_posz = Random.Range(m_MazeGenerator.rows / 2, m_MazeGenerator.rows) * m_MazeGenerator.blockHeight;
+        }
+        while (gen_history.Contains(string.Format("{0}_{1}", gen_posx, gen_posz)));
+
+        gen_history.Add(string.Format("{0}_{1}", gen_posx, gen_posz));
         return new Vector3(gen_posx, 1f, gen_posz);
     }
 

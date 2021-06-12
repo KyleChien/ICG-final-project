@@ -10,7 +10,7 @@ public class KeyEntity : Entity {
 
 	public KeyEntity (EscapeGame game, string name, string keyIdentifier, Vector3 position) : 
 		base (game, name, position) {
-
+		m_Prefabs = "Golden_Chest";
 		m_KeyIdentifier = keyIdentifier;
 	}
 

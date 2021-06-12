@@ -36,6 +36,7 @@ public class Controller : MonoBehaviour
         {
             // TODO: UImode will keep rotating camera
             UImode = !UImode;
+            rb.freezeRotation = !rb.freezeRotation;
             Cursor.lockState = UImode ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = UImode ? true : false;
         }

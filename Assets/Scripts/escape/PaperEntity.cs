@@ -8,7 +8,7 @@ public class PaperEntity : Entity {
 
 	public PaperEntity (EscapeGame game, string name, string content, Vector3 position) :
 		base (game, name, position) {
-	
+		m_Prefabs = "Silver_Chest";
 		m_Content = content;
 	}
 

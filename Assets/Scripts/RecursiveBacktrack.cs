@@ -24,10 +24,7 @@ public class RecursiveBacktrack : MonoBehaviour
         maxColumns = columns;
 
         if (rows<=0 || columns <= 0)
-        {
-            Debug.Log("rows or columns out of range !");
-            throw new System.ArgumentOutOfRangeException();
-        }
+            throw new System.ArgumentOutOfRangeException("rows or columns out of range !");
 
         // generate MazeBlocks
         m_MazeBlocks = new MazeBlock[rows, columns];

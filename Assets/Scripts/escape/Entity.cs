@@ -15,7 +15,7 @@ public class Entity {
 	EscapeGame m_Game;
 	public EscapeGame Game { get { return m_Game; } }
 
-	protected string m_Prefabs = "entity_cube";
+	protected string m_Prefabs = "Wooden_Chest";
 	public string Prefabs { get { return m_Prefabs; } }
 
 	Vector3 m_Position;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class EntityBehav : MonoBehaviour
 {
     MeshRenderer m_Renderer;
+    Animator anim;
 
     Entity m_Entity;
     public Entity Entity { get { return m_Entity; } }
@@ -12,6 +13,7 @@ public class EntityBehav : MonoBehaviour
     private void Start()
     {
         m_Renderer = this.GetComponent<MeshRenderer>();
+        anim = this.GetComponent<Animator>();
     }
     public void UpdateEntity(Entity entity)
     {
@@ -33,12 +35,14 @@ public class EntityBehav : MonoBehaviour
 
     #region Event Handlers
     void HandleOnSelected(Entity e) 
-    { 
-        m_Renderer.material.color = Color.yellow; 
+    {
+        //m_Renderer.material.color = Color.yellow; 
+        anim.SetBool("open", true);
     }
     void HandleOnDeselected(Entity e) 
     { 
-        m_Renderer.material.color = Color.white; 
+        //m_Renderer.material.color = Color.white;
+        anim.SetBool("open", false);
     }
     void HandleOnTaken(Entity e) 
     {
