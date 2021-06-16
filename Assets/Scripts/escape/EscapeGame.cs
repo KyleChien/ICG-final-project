@@ -26,7 +26,6 @@ public class EscapeGame : MonoBehaviour
     List<Entity> m_Entities = new List<Entity>();
     public List<Entity> Entities { get { return m_Entities; } }
 
-
     int m_SelectedIndex = -1;
     Entity m_SelectedEntity = null;
 
@@ -42,9 +41,13 @@ public class EscapeGame : MonoBehaviour
     float gen_posx;
     float gen_posz;
 
-    public EscapeGame(MazeGenerator maze_gen)
+    // monster
+    GameObject monster;
+
+    public EscapeGame(MazeGenerator maze_gen, GameObject monster_tmp)
     {
         m_MazeGenerator = maze_gen;
+        monster = monster_tmp;
     }
 
     Vector3 GetRandomPos()
@@ -199,8 +202,15 @@ public class EscapeGame : MonoBehaviour
         OnGameFinished(this);
     }
 
+    public void ReleaseMonster()
+    {
+        Instantiate(monster, GetRandomPos(), Quaternion.identity);
+    }
+
     public void Die()
     {
+        OnMessageAdded("<color=red>You died !!!</color>\n" +
+                        " returning in 3 seconds...");
         OnGameOver(this);
     }
 

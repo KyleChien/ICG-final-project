@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/aMAZEingGame.unity
     guid: cbe0701181fdf124b85f20a0f15fc80c
   - enabled: 1
+    path: Assets/Scenes/Success Scene.unity
+    guid: ec40e6b92dcadea4689627e413ddcd6c
+  - enabled: 1
     path: Assets/Scenes/Give Up Scene.unity
     guid: cb3597277f0f7f64cb216459010451b6
+  - enabled: 1
+    path: Assets/Scenes/Dead Scene.unity
+    guid: 56c2aa153d0735d41a40c32f82bfcee1
   m_configObjects: {}

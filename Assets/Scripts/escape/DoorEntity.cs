@@ -32,8 +32,7 @@ public class MonsterDoorEntity : DoorEntity {
 	}
 
 	protected override string Open () {
-		Game.Die();
-		return "<color=red> You release a monster. You died.</color>\n" +
-				"returning in 3 seconds...";
+		Game.ReleaseMonster();
+		return "<color=red> You release a monster. Be careful !!!</color>";
 	}
 }

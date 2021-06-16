@@ -9,12 +9,13 @@ public class EscapeGameScene : MonoBehaviour {
 	[SerializeField] GameUI m_GameUI;
 	EscapeGame m_Game;
 	public EscapeGame Game { get { return m_Game; } }
+	public GameObject monster;
 
 	float SELECT_RANGE = 5f;
 
 	private void Awake()
     {
-		m_Game = new EscapeGame(m_MazeGenerator);
+		m_Game = new EscapeGame(m_MazeGenerator, monster);
 		m_Game.OnGameStarted += HandleOnGameStarted;
 		m_Game.OnGameFinished += HandleOnGameFinished;
 		m_Game.OnGameOver += HandleOnGameOver;
@@ -41,7 +42,13 @@ public class EscapeGameScene : MonoBehaviour {
 	IEnumerator Finish()
 	{
 		yield return new WaitForSeconds(3);
-		SceneManager.LoadScene(0);
+		SceneManager.LoadScene(2);
+	}
+
+	IEnumerator Dead()
+	{
+		yield return new WaitForSeconds(3);
+		SceneManager.LoadScene(4);
 	}
 
 	void DetectEntity()
@@ -124,7 +131,7 @@ public class EscapeGameScene : MonoBehaviour {
 	}
 	void HandleOnGameOver(EscapeGame game) 
 	{
-		StartCoroutine(Finish());
+		StartCoroutine(Dead());
 	}
 	#endregion
 }

@@ -20,6 +20,8 @@ public class Controller : MonoBehaviour
     float runSpeed = 7f;
     float maxVelocityChange = 10f;
 
+    public EscapeGameScene m_gameScene;
+
     private void Start()
     {
         // camera init rotation
@@ -86,6 +88,16 @@ public class Controller : MonoBehaviour
             isGround = true;
         else
             isGround = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        var ghost = collision.collider.gameObject.GetComponent<ghost>();
+        if (ghost != null)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            m_gameScene.Game.Die();
+        }
     }
 
 }
