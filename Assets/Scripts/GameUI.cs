@@ -17,7 +17,7 @@ public class GameUI : MonoBehaviour
 
     public void ShowMessage(string msg) 
     {
-        m_MessageText.text = msg;
+        m_MessageText.text = "[MESSAGE]\n" + msg;
     }
     public void SetActionVisible (bool visible) 
     {

@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Start Scene.unity
+    guid: 7211862f0fc81a94e904e1fe9bb5ca36
+  - enabled: 1
+    path: Assets/Scenes/aMAZEingGame.unity
+    guid: cbe0701181fdf124b85f20a0f15fc80c
+  - enabled: 1
+    path: Assets/Scenes/Give Up Scene.unity
+    guid: cb3597277f0f7f64cb216459010451b6
   m_configObjects: {}

@@ -14,13 +14,14 @@ public class KeyEntity : Entity {
 		m_KeyIdentifier = keyIdentifier;
 	}
 
-	public override void Inspect () {
+	public override string Inspect () {
 
-		Debug.Log ("A key for something. Maybe can be used later.");
+		return "A key for something. Maybe can be used later.";
 	}
 
-	public override void Interact (Entity entity = null) {
+	public override string Interact (Entity entity = null) {
 
 		Game.Take (this);
+		return "";		// dummy, never return
 	}
 }

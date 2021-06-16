@@ -27,14 +27,14 @@ public class Entity {
 		m_Name = name;
 	}
 		
-	public virtual void Inspect () { 
+	public virtual string Inspect () { 
 
-		Debug.Log ("Hmm...nothing special.");
+		return "Hmm...nothing special.";
 	}
 
-	public virtual void Interact (Entity entity = null) {
+	public virtual string Interact (Entity entity = null) {
 	
-		Debug.Log ("Nothing happened.");
+		return "Nothing happened.";
 	}
 	public virtual void Select()
     {

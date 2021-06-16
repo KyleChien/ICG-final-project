@@ -14,14 +14,13 @@ public class ExitDoorEntity : DoorEntity {
 
 	public ExitDoorEntity (EscapeGame game, string name, string keyIdentifier, Vector3 position) :
 	base (game, name, keyIdentifier, position) {
-
+		m_Prefabs = "Magic_Chest";
 	}
 
-	protected override void Open () {
-
-		Debug.Log ("It's the right exit.");
-
-		Game.Escape ();
+	protected override string Open () {
+		Game.Escape();
+		return "<color=green>Congrats! You escape the room!</color>\n" +
+				"returning in 3 seconds...";
 	}
 }
 
@@ -32,10 +31,9 @@ public class MonsterDoorEntity : DoorEntity {
 		m_Prefabs = "Death_Chest";
 	}
 
-	protected override void Open () {
-
-		Debug.Log ("<color=red>You release a monster.</color>");
-
-		Game.Die ();
+	protected override string Open () {
+		Game.Die();
+		return "<color=red> You release a monster. You died.</color>\n" +
+				"returning in 3 seconds...";
 	}
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EscapeGame
+public class EscapeGame : MonoBehaviour
 {
 
     public delegate void EscapeMessageEvent(string message);
@@ -45,17 +45,6 @@ public class EscapeGame
     public EscapeGame(MazeGenerator maze_gen)
     {
         m_MazeGenerator = maze_gen;
-        Debug.Log("You are in a locked room. Do something to escape!");
-        Debug.Log("Press 'N' to select item; " +
-            "'R' to putback taken item; " +
-            "'Space' to inspect selected item; " +
-            "'Enter' to interact with the selected item.");
-    }
-
-    void Finish()
-    {
-        Debug.Log("Thanks for playing the game!");
-        UnityEditor.EditorApplication.isPlaying = false;
     }
 
     Vector3 GetRandomPos()
@@ -83,10 +72,10 @@ public class EscapeGame
         m_Entities.Add(new Entity(this, "Cup", GetRandomPos()));
         m_Entities.Add(new KeyEntity(this, "Key A", "123", GetRandomPos()));
         m_Entities.Add(new KeyEntity(this, "Key B", "124", GetRandomPos()));
-        m_Entities.Add(new DoorEntity(this, "Door A", null, GetRandomPos()));
-        m_Entities.Add(new DoorEntity(this, "Door B", null, GetRandomPos()));
-        m_Entities.Add(new MonsterDoorEntity(this, "Door C", "123", GetRandomPos()));
-        m_Entities.Add(new ExitDoorEntity(this, "Door D", "124", GetRandomPos()));
+        m_Entities.Add(new DoorEntity(this, "Door C", null, GetRandomPos()));
+        m_Entities.Add(new DoorEntity(this, "Door D", null, GetRandomPos()));
+        m_Entities.Add(new MonsterDoorEntity(this, "Door A", "123", GetRandomPos()));
+        m_Entities.Add(new ExitDoorEntity(this, "Door B", "124", GetRandomPos()));
         m_Entities.Add(new BoxEntity(this, "Box A", null, null, GetRandomPos()));
         m_Entities.Add(new BoxEntity(this, "Box B", new KeyEntity(this, "Key C", "125", GetRandomPos()), null, GetRandomPos()));
         m_Entities.Add(new PaperEntity(this, "Paper A", "Find a key to escape the room.", GetRandomPos()));
@@ -123,10 +112,8 @@ public class EscapeGame
 
         if (m_SelectedEntity != null)
         {
-
-            OnMessageAdded(string.Format("Inspect item <color=white>{0}</color>", m_SelectedEntity.Name));
-            m_SelectedEntity.Inspect();
-
+            string msg = m_SelectedEntity.Inspect();
+            OnMessageAdded(string.Format("Inspect item <color=white>{0}</color>, \n{1}", m_SelectedEntity.Name, msg));
         }
         else
         {
@@ -137,10 +124,16 @@ public class EscapeGame
     public void Interact(Entity entity = null)
     {
 
-        if (m_SelectedEntity != null)
+        if (m_SelectedEntity is KeyEntity)
         {
-            OnMessageAdded(string.Format("Interact with item <color=white>{0}</color>", m_SelectedEntity.Name));
+            string name = m_SelectedEntity.Name;
             m_SelectedEntity.Interact(entity);
+            OnMessageAdded(string.Format("Interact with item <color=white>{0}</color>\n", name));
+        }
+        else if (m_SelectedEntity != null)
+        {
+            string msg = m_SelectedEntity.Interact(entity);
+            OnMessageAdded(string.Format("Interact with item <color=white>{0}</color>, \n{1}", m_SelectedEntity.Name, msg));
         }
         else
         {
@@ -178,29 +171,11 @@ public class EscapeGame
             m_SelectedEntity = null;
         }
 
-        OnMessageAdded(string.Format("Take item <color=white>{0}</color>, press 'R' to put back.", entity.Name));
+        OnMessageAdded(string.Format("Take item <color=white>{0}</color>.", entity.Name));
         m_Entities.Remove(entity);
         m_TakenEntities.Add(entity);
         entity.Take();
         OnEntityTaken(entity);
-
-
-        /*if (m_TakenEntity != null)
-        {
-
-            Debug.Log(string.Format("You already take item <color=white>{0}</color>", m_TakenEntity.Name));
-
-        }
-        else
-        {
-
-            Debug.Log(string.Format("Take item <color=white>{0}</color>, press 'R' to put back.", entity.Name));
-
-            m_TakenEntity = entity;
-            m_Entities.Remove(entity);
-
-            Deselect();
-        }*/
     }
 
     public void PutBack(Entity entity)
@@ -221,15 +196,12 @@ public class EscapeGame
 
     public void Escape()
     {
-
-        OnMessageAdded("<color=green>Congrats! You escape the room!</color>");
-        Finish();
+        OnGameFinished(this);
     }
 
     public void Die()
     {
-
-        OnMessageAdded("<color=red>Oops! You died.</color>");
-        Finish();
+        OnGameOver(this);
     }
+
 }

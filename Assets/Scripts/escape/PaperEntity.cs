@@ -12,13 +12,13 @@ public class PaperEntity : Entity {
 		m_Content = content;
 	}
 
-	public override void Inspect () {
+	public override string Inspect () {
 
-		Debug.Log ("There is something on the paper.");
+		return "There is something on the paper.";
 	}
 
-	public override void Interact (Entity entity = null) {
+	public override string Interact (Entity entity = null) {
 
-		Debug.Log (string.Format ("Read the paper:<color=white>{0}</color>", m_Content));
+		return string.Format ("Read the paper:<color=white>{0}</color>", m_Content);
 	}
 }

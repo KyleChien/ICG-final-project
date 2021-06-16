@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EscapeGameScene : MonoBehaviour {
 
@@ -35,23 +36,12 @@ public class EscapeGameScene : MonoBehaviour {
         {
 			DetectEntity();
         }
+	}
 
-		/*if (Input.GetKeyDown (KeyCode.N)) {
-
-			m_Game.SelectNext ();
-
-		} else if (Input.GetKeyDown (KeyCode.Space)) {
-
-			m_Game.Inspect ();
-
-		} else if (Input.GetKeyDown (KeyCode.Return)) {
-
-			m_Game.Interact ();
-
-		} else if (Input.GetKeyDown (KeyCode.R)) {
-
-			m_Game.PutBack ();
-		}*/
+	IEnumerator Finish()
+	{
+		yield return new WaitForSeconds(3);
+		SceneManager.LoadScene(0);
 	}
 
 	void DetectEntity()
@@ -128,7 +118,13 @@ public class EscapeGameScene : MonoBehaviour {
 			entityBehav.UpdateEntity(e);
 		}
 	}
-	void HandleOnGameFinished(EscapeGame game) { }
-	void HandleOnGameOver(EscapeGame game) { }
+	void HandleOnGameFinished(EscapeGame game) 
+	{
+		StartCoroutine(Finish());
+	}
+	void HandleOnGameOver(EscapeGame game) 
+	{
+		StartCoroutine(Finish());
+	}
 	#endregion
 }

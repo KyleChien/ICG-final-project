@@ -12,46 +12,47 @@ public class OpenableEntity : Entity {
 		m_KeyIdentifier = keyIdentifier;
 	}
 
-	public override void Inspect () {
+	public override string Inspect () {
 
 		if (string.IsNullOrEmpty (m_KeyIdentifier)) {
 
 			base.Inspect ();
-			return;
+			return "";
 		}
 
-		Debug.Log ("Use the right key to open this.");
+		return "Use the right key to open this.";
 	}
 
-	public override void Interact (Entity entity = null) {
+	public override string Interact (Entity entity = null) {
 
 		if (string.IsNullOrEmpty (m_KeyIdentifier)) {
 
-			Open ();
-			return;
+			string msg = Open ();
+			return msg;
 		}
 
 		KeyEntity key = entity as KeyEntity;
 
-		if (key != null) {
-
-			if (key.Identifier == m_KeyIdentifier) {
-
-				Open ();
-
-			} else {
-
-				Debug.Log (string.Format ("This item cannot be opened by the key <color=white>{0}</color>", key.Name));
+		if (key != null) 
+		{
+			if (key.Identifier == m_KeyIdentifier) 
+			{
+				string msg = Open ();
+				return msg;
 			}
-
-		} else {
-
-			Debug.Log ("You need a key to open it.");
+			else 
+			{
+				return string.Format ("This item cannot be opened by the key <color=white>{0}</color>", key.Name);
+			}
+		} 
+		else 
+		{
+			return "You need a key to open it.";
 		}
 	}
 
-	protected virtual void Open () { 
+	protected virtual string Open () { 
 
-		Debug.Log ("Succeed to open the item, but nothing happened.");
+		return "Succeed to open the item, but nothing happened.";
 	}
 }

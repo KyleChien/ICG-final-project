@@ -13,43 +13,44 @@ public class BoxEntity : OpenableEntity {
 		m_Content = content;
 	}
 
-	public override void Inspect () { 
+	public override string Inspect () { 
 
 		if (m_Closed) {
 
-			Debug.Log ("A closed box.");
+			return "A closed box.";
 
 		} else {
 
 			if (m_Content == null) {
 
-				Debug.Log ("An empty box.");
+				return "An empty box.";
 
 			} else {
 
-				Debug.Log ("Something inside the box:\n");
 				m_Content.Inspect ();
+				return "Something inside the box:\n";
 			}
 		}
 	}
 
-	public override void Interact (Entity entity = null) {
+	public override string Interact (Entity entity = null) {
 
 		if (m_Closed) {
 
 			m_Closed = false;
-			Debug.Log ("The box is opened.");
+			return "The box is opened.";
 
 		} else {
 
 			if (m_Content == null) {
 
-				base.Interact (entity); 
+				base.Interact (entity);
+				return "";
 
 			} else {
 
-				Debug.Log ("Something inside the box, interact with it:\n");
-				m_Content.Interact (entity);
+				m_Content.Interact(entity);
+				return "Something inside the box, interact with it:\n";
 			}
 		}
 	}
